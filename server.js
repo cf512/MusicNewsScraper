@@ -12,50 +12,22 @@ axios.get(url).then(function(response){
     
 // Grabbing headline
 // =============================================================
-    $("h2.cb-post-title").each(function(i,element){
-        var title = $(element).text();
+    $(".cb-meta").each(function(i,element){
+        var title = $(element).find("h2.cb-post-title").text();
+        var author = $(element).find(".cb-author").text();
+        var date = $(element).find(".cb-date").text();
+        var content = $(element).find(".cb-excerpt").text();
+        var link = $(element).find(".cb-excerpt").find("a").attr("href");
 
         results.push({
             title: title,
-
-        })
-    });
-
-// Grabbing author and date
-// =============================================================
-
-    $("div.cb-byline").each(function(i,element){
-        var content = $(element).text();
-        var author = $(element).find(".cb-author").text();
-        var date = $(element).find(".cb-date").text();
-
-        // console.log("");
-        // console.log(chalk.red(content));
-        // console.log(chalk.green(author));
-        // console.log(chalk.yellow(date));
-        // console.log("");
-
-        results.push({
             author: author,
-            date: date
-        })
-    });
-
-// Grabbing article excerpt
-// =============================================================
-    $("div.cb-excerpt").each(function(i,element){
-        var content = $(element).text();
-        var link = $(element).find("a").attr("href");
-
-        // console.log("");
-        // console.log(chalk.green(content));
-        // console.log(chalk.red(link));
-        // console.log("");
-
-        results.push({
-            content: content,
+            date: date,
+            // content: content,
             link: link
-        })
+        });
     });
-    console.log(results);
+    console.table(
+        results
+    );
 });
