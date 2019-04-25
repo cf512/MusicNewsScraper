@@ -1,0 +1,26 @@
+{
+  "name": "MusicNewsScraper",
+  "version": "1.0.0",
+  "description": "a commenting app for news articles scraped from DigitalMusicNews.com",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cf512/MusicNewsScraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cf512/MusicNewsScraper/issues"
+  },
+  "homepage": "https://github.com/cf512/MusicNewsScraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.3"
+  }
+}
