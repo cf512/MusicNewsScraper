@@ -6,17 +6,21 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
-  authors: {
-    type: Array,
+  author: {
+    type: String,
     required: true
-  },
-  doi: {
-      type: String,
-      required: true
   },
   date: {
       type: String,
       required: true
+  },
+  link: {
+      type: String,
+      required: true
+  },
+  content: {
+    type: String,
+    required: true
   },
   note: {
     type: Schema.Types.ObjectId,

@@ -41,7 +41,7 @@ app.set("view engine", "handlebars");
 // Homepage
 app.get("/", function (req, res) {
     // res.send("Hello world");
-    db.news.find({}, function(err, data) {
+    db.Post.find({}, function(err, data) {
         // Log any errors if the server encounters one
         if (err) {
           console.log(err);
@@ -64,7 +64,7 @@ app.get("/news", function (req, res) {
     axios.get(url).then(function (response) {
 
         var $ = cheerio.load(response.data);
-        var results = [];
+        // var results = [];
 
         // Grabbing headline
         // =============================================================
@@ -79,7 +79,7 @@ app.get("/news", function (req, res) {
             if (title && link) {
 
                 // Insert the data in the scrapedData db
-                db.news.insert({
+                db.Post.insert({
                     title: title,
                     author: author,
                     date: date,
