@@ -2,11 +2,11 @@ var express = require("express");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var chalk = require("chalk");
-var mongojs = require("mongojs");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
 
 var app = express();
+var db = require("./models");
 var PORT = process.env.PORT || 3000;
 
 // If deployed, use the deployed database. Otherwise use the local  database
@@ -14,15 +14,15 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/tunesNewsDB";
 
 mongoose.connect(MONGODB_URI);
 
-// Database configuration
-var databaseUrl = "tunesNewsDB";
-var collections = ["news"];
+// // Database configuration
+// var databaseUrl = "tunesNewsDB";
+// var collections = ["news"];
 
 // Hook mongojs configuration to the db variable
-var db = mongojs(databaseUrl, collections);
-db.on("error", function (error) {
-    console.log("Database Error:", error);
-});
+// var db = mongojs(databaseUrl, collections);
+// db.on("error", function (error) {
+//     console.log("Database Error:", error);
+// });
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
