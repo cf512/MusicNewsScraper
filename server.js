@@ -12,22 +12,7 @@ var PORT = process.env.PORT || 3000;
 // If deployed, use the deployed database. Otherwise use the local  database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/tunesNewsDB";
 
-mongoose.connect(MONGODB_URI);
-
-// // Database configuration
-// var databaseUrl = "tunesNewsDB";
-// var collections = ["news"];
-
-// Hook mongojs configuration to the db variable
-// var db = mongojs(databaseUrl, collections);
-// db.on("error", function (error) {
-//     console.log("Database Error:", error);
-// });
-
-// Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static("public"));
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Handlebars
 app.engine(
@@ -38,23 +23,27 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
+// Middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static("public"));
+
 // Homepage
 app.get("/", function (req, res) {
-    // res.send("Hello world");
-    db.Post.find({}, function(err, data) {
-        // Log any errors if the server encounters one
-        if (err) {
-          console.log(err);
-        }
-        else {
-          // Otherwise, send the result of this query to the browser
-          res.json(data);
-        }
-      });
+    // Grab every document in the Articles collection
+    db.Post.find({})
+        .then(function (dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
 });
 
 // Route that scrapes the remote site and sends results to database (and an array)
-app.get("/news", function (req, res) {
+app.get("/scrape", function (req, res) {
 
     // The Scraping
     // =============================================================
@@ -64,52 +53,36 @@ app.get("/news", function (req, res) {
     axios.get(url).then(function (response) {
 
         var $ = cheerio.load(response.data);
-        // var results = [];
 
         // Grabbing headline
         // =============================================================
         $(".cb-meta").each(function (i, element) {
-            var title = $(element).find("h2.cb-post-title").text();
-            var author = $(element).find(".cb-author").text();
-            var date = $(element).find(".cb-date").text();
-            var content = $(element).find(".cb-excerpt").text();
-            var link = $(element).find(".cb-excerpt").find("a").attr("href");
+
+            var result = {};
+
+            result.title = $(this).find("h2.cb-post-title").text();
+            result.author = $(this).find(".cb-author").text();
+            result.date = $(this).find(".cb-date").text();
+            result.content = $(this).find(".cb-excerpt").text();
+            result.link = $(this).find(".cb-excerpt").find("a").attr("href");
 
             // If this found element had both a title and a link
-            if (title && link) {
+            // if (result.title && result.link) {
 
-                // Insert the data in the scrapedData db
-                db.Post.insert({
-                    title: title,
-                    author: author,
-                    date: date,
-                    link: link,
-                    content: content
-                },
-                    function (err, inserted) {
-                        if (err) {
-                            // Log the error if one is encountered during the query
-                            console.log(err);
-                        }
-                        else {
-                            // Otherwise, log the inserted data
-                            console.log(inserted);
-                            // res.json(inserted);
-                            // // Push results into the array
-                            // results.push({
-                            //     title: title,
-                            //     author: author,
-                            //     date: date,
-                            //     link: link,
-                            //     content: content
-                            // });
-                        }
-                        // res.send("Scrape Complete");
-                    });
-            }
+            db.Post.create(result)
+                .then(function (dbArticle) {
+                    console.log(dbArticle);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+            });
+
+            // Send a message to the client
+            res.send("Scrape Complete");
         });
     });
-})
+// });
 
 // Listen on port 3000
 app.listen(PORT, function () {
