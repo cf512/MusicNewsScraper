@@ -1,2 +1,2 @@
 # MusicNewsScraper
-a commenting app for news articles scraped from DigitalMusicNews.com
+an app that scrapes news articles from DigitalMusicNews.com and allows you to comment on them
