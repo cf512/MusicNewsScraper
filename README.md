@@ -49,4 +49,4 @@ It takes the findings and stores them within an object called `result`, and then
 
 ### Original Assignment Notes:
 
-For posterity, the original assignments notes can be found in [assignment.MD](https://github.com/cf512/MusicNewsScraper/blob/master/assignment.MD).
+For posterity, the original assignment notes can be found in [assignment.MD](https://github.com/cf512/MusicNewsScraper/blob/master/assignment.MD).
