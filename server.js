@@ -49,7 +49,7 @@ app.get("/scrape", function (req, res) {
             var result = {};
             result.title = $(this).find("h2.cb-post-title").text();
             result.author = $(this).find(".cb-author").text();
-            result.date = $(this).find(".cb-date").text();
+            result.date = $(this).find("time").attr("datetime");
             result.content = $(this).find(".cb-excerpt").text();
             result.link = $(this).find(".cb-excerpt").find("a").attr("href");
 
@@ -70,7 +70,7 @@ app.get("/scrape", function (req, res) {
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
     // Grab every document in the Articles collection
-    db.Post.find({})
+    db.Post.find({}).sort( { date: 1 } )
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
         res.json(dbArticle);
