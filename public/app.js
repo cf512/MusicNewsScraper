@@ -22,3 +22,19 @@ function getResults() {
 // Runs the getResults function as soon as the script is executed
 // ==============================================================
 getResults();
+
+// =============================================================
+// When the #scrape button is clicked, call the /scrape route
+// =============================================================
+$(document).on("click", "#scrape", function() {
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/scrape",
+  })
+  // If that API call succeeds, add the title and a delete button for the note to the page
+    .then(function() {
+        getResults();
+        location.reload();
+    });
+});
