@@ -34,7 +34,7 @@ $(document).on("click", "#scrape", function() {
   })
   // If that API call succeeds, add the title and a delete button for the note to the page
     .then(function() {
-        getResults();
-        location.reload();
+        console.log("Supposed to reload homepage at this point.")
     });
+  location.reload();
 });
