@@ -46,3 +46,7 @@ It takes the findings and stores them within an object called `result`, and then
 │   └── ./public/reference.js
 └── ./server.js
 ```
+
+### Original Assignment Notes:
+
+For posterity, the original assignments notes can be found in [assignment.MD](https://github.com/cf512/MusicNewsScraper/blob/master/assignment.MD).
