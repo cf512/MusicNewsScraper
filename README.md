@@ -1,5 +1,9 @@
 # MusicNewsScraper
-an app that scrapes news articles from DigitalMusicNews.com and allows you to comment on them
+an app that scrapes news articles from DigitalMusicNews.com, stores them in a MongoDB database, and can scrape on-demand for new articles with the click of a button, but doesn't add them if they already exist
+
+## Live Version deployed to Heroku:
+
+https://evening-gorge-92186.herokuapp.com/
 
 ### Technical Architecture:
 
@@ -34,6 +38,7 @@ It takes the findings and stores them within an object called `result`, and then
 
 ```
 ├── ./README.md
+├── ./assignment.md
 ├── ./models
 │   ├── ./models/Note.js
 │   ├── ./models/Post.js
