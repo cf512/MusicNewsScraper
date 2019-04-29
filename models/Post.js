@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   title: {
     type: String,
+    unique: true,
     required: true
   },
   author: {
@@ -11,16 +12,15 @@ const PostSchema = new Schema({
     required: true
   },
   date: {
-      type: String,
-      required: true
+    type: String,
+    required: true
   },
   link: {
-      type: String,
-      required: true
+    type: String,
+    required: true
   },
   content: {
     type: String,
-    required: true
   },
   note: {
     type: Schema.Types.ObjectId,
