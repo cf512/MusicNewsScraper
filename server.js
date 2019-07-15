@@ -66,6 +66,17 @@ app.get("/scrape", function (req, res) {
   });
 });
 
+app.get("/count", function (req, res){
+  db.Post.find({}).countDocuments()
+  .then(function(count){
+    console.log(count);
+    res.json(count);
+  })
+  .catch(function(err){
+    res.json(err);
+  })
+});
+
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
   // Grab every document in the Articles collection
@@ -120,3 +131,5 @@ app.post("/articles/:id", function (req, res) {
 app.listen(PORT, function () {
   console.log("App running on port 3000!");
 });
+
+module.exports = db;

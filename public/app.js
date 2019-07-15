@@ -32,9 +32,38 @@ $(document).on("click", "#scrape", function() {
     dataType: "json",
     url: "/scrape",
   })
-  // If that API call succeeds, add the title and a delete button for the note to the page
     .then(function() {
-        console.log("Supposed to reload homepage at this point.")
+        currentCount();
+        scrapeComplete();
     });
-  location.reload();
+    location.reload();
 });
+
+// =============================================================
+// Clears out previous message and asks user to reload page
+// =============================================================
+function scrapeComplete(){
+  $("#scraperesult").empty();
+  $("#scraperesult").text("Scrape complete. Please reload page.");
+}
+
+// =============================================================
+// Count button
+// =============================================================
+
+$(document).on("click", "#getCount", function() {
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/count",
+  })
+    .then(function(data) {
+        console.log(data);
+    });
+});
+
+function currentCount(){
+  $.getJSON("/count", function(data){
+    console.log("New function for count: " + data);
+  })
+}
