@@ -17,14 +17,10 @@ const PostSchema = new Schema({
   },
   link: {
     type: String,
-    required: true
+    required: false
   },
   content: {
     type: String,
-  },
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Note"
   }
 });
 

@@ -66,15 +66,15 @@ app.get("/scrape", function (req, res) {
   });
 });
 
-app.get("/count", function (req, res){
+app.get("/count", function (req, res) {
   db.Post.find({}).countDocuments()
-  .then(function(count){
-    console.log(count);
-    res.json(count);
-  })
-  .catch(function(err){
-    res.json(err);
-  })
+    .then(function (count) {
+      console.log(count);
+      res.json(count);
+    })
+    .catch(function (err) {
+      res.json(err);
+    })
 });
 
 // Route for getting all Articles from the db
